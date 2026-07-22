@@ -3,6 +3,9 @@ FROM php:8.2-apache
 # Habilitar mod_rewrite de Apache para que funcione el enrutador
 RUN a2enmod rewrite
 
+# Forzar el uso del MPM correcto para evitar conflicto en Railway
+RUN a2dismod mpm_event mpm_worker || true && a2enmod mpm_prefork
+
 # Instalar extensiones PDO y MySQL para PHP
 RUN docker-php-ext-install pdo pdo_mysql
 
