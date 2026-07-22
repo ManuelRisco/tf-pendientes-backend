@@ -25,7 +25,7 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Railway inyecta la variable $PORT, así que configuramos Apache para que escuche en ese puerto.
 # Además forzamos la desactivación de los MPM problemáticos justo antes de arrancar.
-CMD sed -i "s/80/\${PORT:-80}/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && \
+CMD sed -i "s/80/${PORT:-80}/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && \
     a2dismod mpm_event mpm_worker 2>/dev/null || true && \
     a2enmod mpm_prefork 2>/dev/null || true && \
     apache2-foreground
