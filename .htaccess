@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# --- CORS: el preflight OPTIONS SIEMPRE debe llegar a index.php ---
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^ index.php [QSA,L]
+
+# --- Resto de rutas: solo redirigir si no es archivo/directorio real ---
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
